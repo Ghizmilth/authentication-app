@@ -42,7 +42,7 @@ router.post("/", function(req, res, next) {
       user
     ) {
       if (error || !user) {
-        var err = new Error("Wrong email or password and try again.");
+        var err = new Error("Wrong email or password try again.");
         err.status = 401;
         return next(err);
       } else {
@@ -51,7 +51,7 @@ router.post("/", function(req, res, next) {
       }
     });
   } else {
-    var err = new Error("All fields are requiered.");
+    var err = new Error("All fields are required.");
     err.status = 400;
     return next(err);
   }
