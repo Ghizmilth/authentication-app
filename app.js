@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/views"));
 
 // include routes
-var routes = require("./routes/router");
+var routes = require("./controllers/routerController");
 app.use("/", routes);
 
 // catch 404 and forward to error handler

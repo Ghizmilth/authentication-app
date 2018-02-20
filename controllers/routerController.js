@@ -36,8 +36,8 @@ router.post("/", function(req, res, next) {
         return res.redirect("/profile");
       }
     });
-  } else if (rea.body.logemail && rea.body.logpassword) {
-    User.authenticate(req.body.logemail, req.body, logpassword, function(
+  } else if (req.body.logemail && req.body.logpassword) {
+    User.authenticate(req.body.logemail, req.body.logpassword, function(
       error,
       user
     ) {
