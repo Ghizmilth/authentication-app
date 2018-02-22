@@ -5,12 +5,12 @@ var mongoose = require("mongoose");
 var mongodb = reuire ('mongodb');
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
-var uri =
-  "mongodb://heroku_0c85xskw:qn26c4jp9ntk425dojtadb7opp@ds245518.mlab.com:45518/heroku_0c85xskw";
-var uri =
+// var uri =
+//   "mongodb://heroku_0c85xskw:qn26c4jp9ntk425dojtadb7opp@ds245518.mlab.com:45518/heroku_0c85xskw";
+// var uri =
 
-//connect to MongoDB
-mongoose.connect(uri);
+// //connect to MongoDB
+// mongoose.connect(uri);
 
 // serve static files from template
 app.use(express.static(__dirname + "/views"));
