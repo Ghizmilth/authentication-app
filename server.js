@@ -4,9 +4,11 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
+var uri =
+  "mongodb://heroku_0c85xskw:qn26c4jp9ntk425dojtadb7opp@ds245518.mlab.com:45518/heroku_0c85xskw";
 
 //connect to MongoDB
-mongoose.connect("mongodb://localhost/authentication-app");
+mongoose.connect(uri);
 var db = mongoose.connection;
 
 //handle mongo error
