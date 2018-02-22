@@ -2,10 +2,9 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var mongodb = reuire ('mongodb');
+var mongodb = reuire("mongodb");
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
-
 
 // serve static files from template
 app.use(express.static(__dirname + "/views"));
@@ -16,12 +15,12 @@ app.use(bodyParser.json());
 //handle mongo error
 // db.on("error", console.error.bind(console, "connection error:"));
 // db.once("open", function() {
-  // we're connected!
+// we're connected!
 // });
 var db;
 
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
@@ -31,18 +30,18 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   db = database;
   console.log("Database connection ready");
 
-//use sessions for tracking logins
-app.use(
-  session({
-    secret: "work hard",
-    resave: true,
-    saveUninitialized: false,
-    store: new MongoStore({
-      mongooseConnection: db
+  //use sessions for tracking logins
+  app.use(
+    session({
+      secret: "work hard",
+      resave: true,
+      saveUninitialized: false,
+      store: new MongoStore({
+        mongooseConnection: db
+      })
     })
-  })
-);
-
+  );
+});
 // include routes
 var routes = require("./controllers/routerController");
 app.use("/", routes);
