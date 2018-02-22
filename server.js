@@ -2,21 +2,41 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var mongodb = reuire ('mongodb');
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var uri =
   "mongodb://heroku_0c85xskw:qn26c4jp9ntk425dojtadb7opp@ds245518.mlab.com:45518/heroku_0c85xskw";
+var uri =
 
 //connect to MongoDB
 mongoose.connect(uri);
 
-var db = mongoose.connection;
+// serve static files from template
+app.use(express.static(__dirname + "/views"));
+// parse incoming requests
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //handle mongo error
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function() {
   // we're connected!
 });
+
+
+var db;
+
+// Connect to the database before starting the application server.
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  }
+
+  // Save database object from the callback for reuse.
+  db = database;
+  console.log("Database connection ready");
 
 //use sessions for tracking logins
 app.use(
@@ -29,13 +49,6 @@ app.use(
     })
   })
 );
-
-// parse incoming requests
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// serve static files from template
-app.use(express.static(__dirname + "/views"));
 
 // include routes
 var routes = require("./controllers/routerController");
@@ -56,6 +69,7 @@ app.use(function(err, req, res, next) {
 });
 
 // listen on port 3000
-// app.listen(3000, function() {
-//   console.log("Express app listening on port 3000");
-// });
+app.listen(process.env.PORT || 8080, function() {
+  var port = server.address().port;
+  console.log("Express app listening on port 8080", port);
+});
