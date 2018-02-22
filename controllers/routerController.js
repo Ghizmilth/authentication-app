@@ -69,10 +69,13 @@ router.get("/profile", function(req, res, next) {
         return next(err);
       } else {
         return res.send(
-          "<h1>Name: </h1>" +
+          "<h1>User Profile</h1>" +
+            "<h1>Name: </h1>" +
             user.username +
-            "<h2>Mail: </h2>" +
+            "<h2>E-mail Address: </h2>" +
             user.email +
+            "<br>" +
+            "<br>" +
             '<br><a type="button" href="/logout">Logout</a>'
         );
       }
