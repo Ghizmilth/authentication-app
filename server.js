@@ -25,7 +25,6 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, database) {
     console.log(err);
     process.exit(1);
   }
-
   // Save database object from the callback for reuse.
   db = database;
   console.log("Database connection ready");
@@ -41,7 +40,14 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, database) {
       })
     })
   );
+
+  var server = app.listen(process.env.PORT || 8080, function() {
+    var port = server.address().port;
+    console.log("App now running on port", port);
+  });
+
   var routes = require("./controllers/routerController");
+
   app.use("/", routes);
 
   // catch 404 and forward to error handler
